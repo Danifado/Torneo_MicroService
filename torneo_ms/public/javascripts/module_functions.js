@@ -10,6 +10,8 @@ module.exports = {
         };
         return(code);
     },
+    //code_gen va a generar un codigo aleatorio de 6 caracteres con numeros en mayuscula y letras.
+    
     inicio_queue: function () {
         const hora = ""
         let date_ob = new Date()
@@ -22,6 +24,9 @@ module.exports = {
         const real_hour = hours+":"+minutes+":"+seconds;
         return(real_hour);
     },
+    // inicio_queue es la función que recibe la hora en tiempo real que se crea el torneo y empieza un queue
+    // que abre la sala para que la gente se conecte al torneo.
+    
     final_queue: function () {
         const hora = ""
         let date_ob = new Date()
@@ -34,5 +39,8 @@ module.exports = {
         minutes = minutes+10;
         const real_hour = hours+":"+minutes+":"+seconds;
         return(real_hour);
-    }
+    },
+    // final_queue es la función que muestra que en 10 minutos pasados del incio_queue finaliza la cola del torneo y
+    // este ya no va a estar abierto.
+    
 }
