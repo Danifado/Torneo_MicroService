@@ -37,6 +37,7 @@ module.exports = {
       connection.close()
     })
 
+<<<<<<< HEAD
     request.on('row', (columns) => {
       columns.forEach((column) => {
         if (column.value === null) {
@@ -49,3 +50,13 @@ module.exports = {
 
     connection.execSql(request)
   }
+=======
+  connection.execSql(request)
+}
+const getConnection = () =>{
+  return connection
+};
+module.exports = {
+  getConnection
+}
+>>>>>>> d0c9210f5681c52843cbe368f5b78248ef2a79b6

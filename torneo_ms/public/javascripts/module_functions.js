@@ -1,3 +1,7 @@
+
+const Request = require('tedious').Request
+import {getConnection}  from "./dbcon";
+const TYPES = require('tedious').TYPES
 module.exports = {
     cod_gen: function () {
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVW1234567890';
@@ -40,5 +44,29 @@ module.exports = {
     },
     // final_queue es la función que muestra que en 10 minutos pasados del incio_queue finaliza la cola del torneo y
     // este ya no va a estar abierto.
-    
+    insert_Torneo: function (value1, value2, value3 ,value4, value7, value8) {
+
+        const connection = getConnection();
+        const request = new Request("INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES (@value1, @value2, @value3, @value4, @value7, @value8)", (err, rowCount) => {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log(`${rowCount} rows`)
+          }
+          connection.close()
+        })
+        request.on('error', (err) => {
+          console.log(err)
+        })
+      
+        request.addParameter("Id_sala", TYPES.VarChar, value1);
+        request.addParameter("Num_players", TYPES.int, value2);
+        request.addParameter("Id_tematica", TYPES.VarChar, value3);
+        request.addParameter("Nombre_tematica", TYPES.VarChar, value4);
+        request.addParameter("End_time", TYPES.VarChar, value7);
+        request.addParameter("Is_Active", TYPES.Null, value8);
+      
+        connection.execSql(request)
+    }
+    //insert_Torneo funcion que inserta 
 }

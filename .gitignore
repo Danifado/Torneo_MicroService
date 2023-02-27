@@ -1,2 +1,3 @@
 /torneo_ms/node_modules
 .env
+torneo_ms/dbcon.js
