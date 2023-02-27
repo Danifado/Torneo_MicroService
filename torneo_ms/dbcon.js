@@ -44,3 +44,9 @@ function executeStatement () {
 
   connection.execSql(request)
 }
+const getConnection = () =>{
+  return connection
+};
+module.exports = {
+  getConnection
+}
