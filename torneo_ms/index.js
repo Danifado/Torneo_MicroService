@@ -4,20 +4,23 @@ const express = require('express')
 var path = require('path');
 var module_functions = require('./public/javascripts/module_functions');
 // var callsRouter = require('./routes/calls');
-
-const app = express()
-const port = 3000
+const dbcon = require('./dbcon');
+const app = express();
+const port = 3000;
 
 // --------------- API de Pruebas --------------- //
 var pruebas = require('./public/javascripts/pruebas');
 
 // GET TEMATICAS
-app.get('/topics', (req, res) => {
-  if(action !== 'approve' && action !== 'reject') {
-    return next(new Error('Action is neither approve or reject.'));
-  }
-  console.log(req.query.SUPAPA);
-  res.send(pruebas.get_preguntas(req.query.id));
+var tmpCod 
+app.get('/crear_torneo', (req, res) => {
+  // console.log(dbcon.connect());
+  res.send(dbcon.connect());
+});
+
+app.get('/get_preguntas', (req, res) => {
+  console.log(module_functions.cod_gen())
+  res.send(pruebas.get_tematicas(req.query.id));
 });
 // --------------- Fin API Pruebas --------------- //
 

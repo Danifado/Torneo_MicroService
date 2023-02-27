@@ -1,6 +1,6 @@
 create table Fact_Salas(
-	Id_Sala varchar(10), --Codigo de la sala
-	Num_Payers int,
+	Id_Sala varchar(10) primary key, --Codigo de la sala
+	Num_Players int,
 	Id_Tematica  varchar(100),
 	Nombre_Tematica varchar(100),
 	End_Queue date default dateadd(minute, 10, getdate()),

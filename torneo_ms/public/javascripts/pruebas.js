@@ -3,18 +3,24 @@
 module.exports = {
     get_tematicas: function (id) {
         const tematicas = [
-                {
+            {
                 "_id": "63df1c4afd28d9a46c39d79b",
                 "name": "Geography",
                 "createdAt": "2023-02-05T03:02:34.670Z",
                 "updatedAt": "2023-02-07T03:02:34.690Z"
-                },
+            },
             {
-                "_id": "63df1c4afd28d9a46c39d79b",
-                "name": "Tema 2",
+                "_id": "63df1c4afd28d9a46c39d79c",
+                "name": "History",
                 "createdAt": "2023-02-05T03:02:34.670Z",
                 "updatedAt": "2023-02-07T03:02:34.690Z"
-                }
+            },
+            {
+                "_id": "63df1c4afd28d9a46c39d79d",
+                "name": "History",
+                "createdAt": "2023-02-05T03:02:34.670Z",
+                "updatedAt": "2023-02-07T03:02:34.690Z"
+            }
         ];
 
         var tematica_info;
