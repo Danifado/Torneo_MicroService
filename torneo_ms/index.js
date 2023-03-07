@@ -12,19 +12,14 @@ const port = 3000;
 var pruebas = require('./public/javascripts/pruebas');
 
 // GET TEMATICAS
-<<<<<<< HEAD
 var tmpCod 
 app.get('/crear_torneo', (req, res) => {
   // console.log(dbcon.connect());
   res.send(dbcon.connect());
 });
 
-app.get('/get_preguntas', (req, res) => {
-  console.log(module_functions.cod_gen())
-  res.send(pruebas.get_tematicas(req.query.id));
-=======
-var tmpCod
-app.post('/topics', (req, res) => {
+
+app.post('/torneo', (req, res) => {
   tmpCod = module_functions.cod_gen();
   const { Num_players, Id_tematica, Nombre_Tematica } = req.body;
   console.log(req.body)
@@ -41,14 +36,22 @@ app.post('/topics', (req, res) => {
   res.json({ message: "torneo creadisimo" }); //acaba la funcion, se podria poner return?
   console.log(tourney);
 });
-app.get('/topics', (req, res) => {
-  if (action !== 'approve' && action !== 'reject') {
-    return next(new Error('Action is neither approve or reject.'));
-  }
-  console.log(req.query.SUPAPA);
-  res.send(pruebas.get_preguntas(req.query.id));
->>>>>>> d0c9210f5681c52843cbe368f5b78248ef2a79b6
-});
+
+app.get('/tematica/:id', (req, res) => {
+  const {id} = req.params;
+	const tematica = pruebas.get_tematicas();
+	res.send(module_functions.findTematica(tematica, id));
+	console.log(tematica);});
+
+app.get('/preguntas/:tematica/:numero', (req, res) =>{
+  const {tematica} = req.params;
+	var {numero} = req.params;
+	numero = parseInt(numero)
+	const json_preguntas = pruebas.get_preguntas(tematica);
+	const preguntas_shuffled = module_functions.shuffleJSON(json_preguntas);
+	var preguntas_finales = preguntas_shuffled.slice(0, numero)
+	res.send(preguntas_finales);
+}); 
 // --------------- Fin API Pruebas --------------- //
 
 
