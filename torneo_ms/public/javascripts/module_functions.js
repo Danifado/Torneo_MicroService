@@ -44,9 +44,21 @@ module.exports = {
     },
     // final_queue es la función que muestra que en 10 minutos pasados del incio_queue finaliza la cola del torneo y
     // este ya no va a estar abierto.
-    insert_Torneo: function (value1, value2, value3 ,value4, value7, value8) {
+    insert_Preguntas_json: async function (value1) {
+        const connection = await getConnection();
+        const sql = 'INSERT INTO json_preguntas (json_pregunta) VALUES ($1)';
+        const value1 = JSON.stringify(value1);
+        const values = [value1];
 
-        const connection = getConnection();
+        await connection.query(sql, values);
+        res.json({ message: 'respuesta en base' });
+        
+      
+
+    },
+    insert_Torneo: async function (value1, value2, value3 ,value4, value7, value8) {
+        
+        const connection = await getConnection();
         const request = new Request("INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES (@value1, @value2, @value3, @value4, @value7, @value8)", (err, rowCount) => {
           if (err) {
             console.log(err)

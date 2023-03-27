@@ -36,7 +36,16 @@ app.post('/torneo', (req, res) => {
   res.json({ message: "torneo creadisimo" }); //acaba la funcion, se podria poner return?
   console.log(tourney);
 });
-
+app.post('/preguntas_json', (req, res) => {
+  
+  
+  
+  const value1 = req.body;
+  
+  insert_Preguntas_json(value1);
+  res.json({ message: "json de preguntas en base" }); //acaba la funcion, se podria poner return?
+  
+});
 app.get('/tematica/:id', (req, res) => {
   const {id} = req.params;
 	const tematica = pruebas.get_tematicas();
