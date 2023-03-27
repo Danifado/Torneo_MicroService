@@ -59,7 +59,8 @@ module.exports = {
     insert_Torneo: async function (value1, value2, value3 ,value4, value7, value8) {
         
         const connection = await getConnection();
-        const request = new Request("INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES (@value1, @value2, @value3, @value4, @value7, @value8)", (err, rowCount) => {
+        
+        const request = new Request("INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)", (err, rowCount) => {
           if (err) {
             console.log(err)
           } else {
@@ -71,14 +72,9 @@ module.exports = {
           console.log(err)
         })
       
-        request.addParameter("Id_sala", TYPES.VarChar, value1);
-        request.addParameter("Num_players", TYPES.int, value2);
-        request.addParameter("Id_tematica", TYPES.VarChar, value3);
-        request.addParameter("Nombre_tematica", TYPES.VarChar, value4);
-        request.addParameter("End_time", TYPES.VarChar, value7);
-        request.addParameter("Is_Active", TYPES.Null, value8);
-      
-        connection.execSql(request)
+        const values = [value1, value2, value3, value4, value7, value8];
+        client.query('INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)', values);
+
     },
     //insert_Torneo funcion que inserta 
     shuffleJSON: function (jason) {
