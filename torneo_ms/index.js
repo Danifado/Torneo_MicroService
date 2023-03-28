@@ -7,7 +7,7 @@ var module_functions = require('./public/javascripts/module_functions');
 const dbcon = require('./dbcon');
 const app = express();
 const port = 3000;
-
+app.use(express.json())
 // --------------- API de Pruebas --------------- //
 var pruebas = require('./public/javascripts/pruebas');
 
@@ -19,38 +19,41 @@ app.get('/crear_torneo', (req, res) => {
 });
 
 
-app.post('/torneo', (req, res) => {
+app.post('/torneo', async function(req, res) {
   tmpCod = module_functions.cod_gen();
   const { Num_players, Id_tematica, Nombre_Tematica } = req.body;
-  console.log(req.body)
-  if (Num_players == undefined || Id_tematica == undefined || Nombre_Tematica == undefined) {
-    res.status(400).json({ message: "Bad Request, fill all the things" });
-  }
+
+  console.log("a")
   const value1 = tmpCod;
   const value2 = Num_players;
   const value3 = Id_tematica;
   const value4 = Nombre_Tematica
   const value7 = null;
   const value8 = 1;
-  insert_Torneo(value1, value2, value3 ,value4, value7, value8);
-  res.json({ message: "torneo creadisimo" }); //acaba la funcion, se podria poner return?
-  console.log(tourney);
-});
-app.post('/preguntas_json', (req, res) => {
+  const values = [value1, value2, value3, value4, value7, value8];
+  await dbcon.query('INSERT INTO fact_salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)', values);
+  res.json({ message: "torneo creadisimo" }); //acaba la funcion,
   
-  
+});//funciona
+app.post('/preguntas_json', async function (req, res)  {
   
   const value1 = req.body;
+
+  const sql = 'INSERT INTO json_preguntas (json_pregunta) VALUES ($1)';
+  const value_tmp = JSON.stringify(value1);
+  const values = [value_tmp];
+
+  await dbcon.query(sql, values);
   
-  insert_Preguntas_json(value1);
-  res.json({ message: "json de preguntas en base" }); //acaba la funcion, se podria poner return?
+  res.json({ message: "json de preguntas en base" }); 
   
 });
 app.get('/tematica/:id', (req, res) => {
   const {id} = req.params;
-	const tematica = pruebas.get_tematicas();
-	res.send(module_functions.findTematica(tematica, id));
-	console.log(tematica);});
+	const tematica = pruebas.get_tematicas(id);
+  console.log(typeof(id));
+	res.send(tematica);
+});//funciona
 
 app.get('/preguntas/:tematica/:numero', (req, res) =>{
   const {tematica} = req.params;
@@ -60,7 +63,7 @@ app.get('/preguntas/:tematica/:numero', (req, res) =>{
 	const preguntas_shuffled = module_functions.shuffleJSON(json_preguntas);
 	var preguntas_finales = preguntas_shuffled.slice(0, numero)
 	res.send(preguntas_finales);
-}); 
+}); //funciona
 // --------------- Fin API Pruebas --------------- //
 
 

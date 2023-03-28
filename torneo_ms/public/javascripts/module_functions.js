@@ -1,7 +1,4 @@
-
-const Request = require('tedious').Request
-import {getConnection}  from "./dbcon";
-const TYPES = require('tedious').TYPES
+var client = require("./../../dbcon");
 module.exports = {
     cod_gen: function () {
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVW1234567890';
@@ -44,38 +41,8 @@ module.exports = {
     },
     // final_queue es la función que muestra que en 10 minutos pasados del incio_queue finaliza la cola del torneo y
     // este ya no va a estar abierto.
-    insert_Preguntas_json: async function (value1) {
-        const connection = await getConnection();
-        const sql = 'INSERT INTO json_preguntas (json_pregunta) VALUES ($1)';
-        const value1 = JSON.stringify(value1);
-        const values = [value1];
-
-        await connection.query(sql, values);
-        res.json({ message: 'respuesta en base' });
-        
-      
-
-    },
-    insert_Torneo: async function (value1, value2, value3 ,value4, value7, value8) {
-        
-        const connection = await getConnection();
-        
-        const request = new Request("INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)", (err, rowCount) => {
-          if (err) {
-            console.log(err)
-          } else {
-            console.log(`${rowCount} rows`)
-          }
-          connection.close()
-        })
-        request.on('error', (err) => {
-          console.log(err)
-        })
-      
-        const values = [value1, value2, value3, value4, value7, value8];
-        client.query('INSERT INTO Fact_Salas (Id_sala, Num_players, Id_tematica, Nombre_Tematica, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)', values);
-
-    },
+    
+    
     //insert_Torneo funcion que inserta 
     shuffleJSON: function (jason) {
       for (var i = 0; i < jason.length - 1; i++) {
@@ -88,20 +55,20 @@ module.exports = {
       return jason;
     },
     //funcion que revuelve un json
-    findTematica: function(tematicas, id){
+    findTematica: function(tem, id){
       var tematica_info;
-      tematicas.forEach(tem => {
+     for (var i = 0; i < tem.length - 1; i++){
         if(tem._id == id){
             tematica_info =  tem.name
         }
         else{
             tematica_info =  "No encontrado"
         }
-    })
+    }
     //funcion que encuentra tematica basada en su id
     return tematica_info;
     },
-    findPreguntas: function(){
+    findPreguntas: function(questions){
       var jsonArr = []
           
           for (var i = 0; i < questions.length; i++){

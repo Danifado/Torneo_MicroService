@@ -69,7 +69,42 @@ module.exports = {
                     "Southern Ocean",
                     "Arctic Ocean"
                 ]
+            },
+            {
+                "theme": "Science",
+                "question": "What is the chemical symbol for helium?",
+                "answers": [
+                    "He",
+                    "Atlantic Ocean",
+                    "Indian Ocean",
+                    "Southern Ocean",
+                    "Arctic Ocean"
+                ]
+            },
+            {
+                "theme": "Science",
+                "question": "What is the chemical symbol for iron?",
+                "answers": [
+                    "Fe",
+                    "Atlantic Ocean",
+                    "Indian Ocean",
+                    "Southern Ocean",
+                    "Arctic Ocean"
+                ]
+            },
+            {
+                "theme": "Science",
+                "question": "What is the chemical symbol for paladium?",
+                "answers": [
+                    "Pa",
+                    "Atlantic Ocean",
+                    "Indian Ocean",
+                    "Southern Ocean",
+                    "Arctic Ocean"
+                ]
             }
-        ];          
+    
+        ]        
+    return questions;
     }
 }

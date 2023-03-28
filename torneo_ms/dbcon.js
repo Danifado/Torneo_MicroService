@@ -1,6 +1,13 @@
-const Connection = require('tedious').Connection
-const Request = require('tedious').Request
-require('env.db').env()
+//conexion a postgres
+const {Client} = require('pg')
+const client = new Client({
+  host: "localhost",
+  user: "postgres",
+  port: 5432,
+  password: "29062002",
+  database: "test"
+})
+client.connect();
 module.exports = {
 
   connect: function () {
@@ -49,10 +56,12 @@ module.exports = {
 
     connection.execSql(request)
   }
- 
+/* 
 const getConnection = () =>{
   return connection
 };
 module.exports = {
   getConnection
-}
+}*/
+
+module.exports = client;
