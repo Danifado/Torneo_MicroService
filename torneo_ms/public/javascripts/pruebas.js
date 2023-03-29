@@ -27,15 +27,18 @@ module.exports = {
         
         tematicas.forEach(tem => {
             if(tem._id == id){
-                tematica_info =  tem
+                tematica_info =  tem;
+                return tematica_info;
+                
             }
             else{
-                tematica_info =  "No encontrado"
+                tematica_info =  "No encontrado";
+                return tematica_info;
             }
         })
-        return tematica_info;
+        
     },
-    get_preguntas: function () {
+    get_preguntas: function (_theme) {
         const questions =  [
             {
                 "theme": "Geography",
@@ -104,7 +107,18 @@ module.exports = {
                 ]
             }
     
-        ]        
-    return questions;
+        ]
+        var jsonArr = []
+          
+          for (var i = 0; i < questions.length; i++){
+              if (questions[i].theme == _theme){
+                  jsonArr.push({
+                      question: questions[i].question,
+                      answer: questions[i].answers
+                  });
+              }
+          }
+        return jsonArr;      
+    
     }
 }
