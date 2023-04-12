@@ -21,7 +21,8 @@ app.get('/crear_torneo', (req, res) => {
 
 app.post('/torneo', async function(req, res) {
   tmpCod = module_functions.cod_gen();
-  const {numPlayers, idTematica, numPreguntas} = req.body;
+  console.log("test");
+  const [numPlayers, idTematica, numPreguntas] = req.body;
   const values = [tmpCod, numPlayers, idTematica, numPreguntas, null, 1];
   const sqlQuery = 'INSERT INTO fact_salas (id_sala, num_players, id_tematica, num_preguntas, End_time, Is_Active) VALUES ($1, $2, $3, $4, $5, $6)'
   await dbcon.query(sqlQuery, values);
